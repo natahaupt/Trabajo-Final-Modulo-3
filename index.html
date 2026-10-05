@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -16,6 +16,7 @@
             --azul-brillante: #3b82f6;
             --rojo-cepies: #EA2027;
             --blanco: #f8fafc;
+            --texto-secundario: #94a3b8;
         }
 
         body {
@@ -70,7 +71,7 @@
 
         .container {
             width: 90%;
-            max-width: 850px;
+            max-width: 800px;
             margin: 1rem auto 4rem;
             position: relative;
         }
@@ -84,9 +85,10 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             margin-bottom: 2rem;
-            display: none;
+            display: none; /* Por defecto ocultas */
         }
 
+        /* ¡CORRECCIÓN CLAVE AQUÍ! Aseguramos que la sección activa siempre sea visible */
         .section.active {
             display: block;
             opacity: 1;
@@ -129,7 +131,7 @@
             background: rgba(15, 23, 42, 0.9);
         }
 
-        textarea { resize: vertical; min-height: 140px; line-height: 1.5; }
+        textarea { resize: vertical; min-height: 120px; }
 
         .btn {
             background: var(--rojo-cepies);
@@ -171,61 +173,42 @@
             margin-bottom: 15px;
         }
 
-        .btn-volver:hover { background: rgba(255, 255, 255, 0.2); }
-        
-        .claro-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin: 2rem 0;
+        .btn-volver:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .claro-card {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 1.5rem 1rem;
+        .claro-table-wrapper {
             width: 100%;
-            max-width: 230px;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .claro-card:hover { transform: translateY(-5px); background: rgba(15, 23, 42, 0.8); }
-
-        .letra-globo {
-            font-family: 'Fredoka One', cursive;
-            font-size: 4rem;
-            margin: 0 0 10px 0;
-            line-height: 1;
-            text-shadow: 
-                0px 3px 0px rgba(255,255,255,0.4),
-                0px 8px 10px rgba(0,0,0,0.5);
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(15, 23, 42, 0.5);
+            text-align: left;
         }
-        
-        .color-c { color: #ff4757; } 
-        .color-l { color: #2ed573; } 
-        .color-a { color: #1e90ff; } 
-        .color-r { color: #ffa502; } 
-        .color-o { color: #9b59b6; } 
 
-        .claro-titulo-card {
-            font-family: 'Pacifico', cursive;
-            font-size: 1.5rem;
+        th {
+            background: rgba(59, 130, 246, 0.2);
             color: #fff;
-            margin: 0 0 10px 0;
+            padding: 16px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--azul-brillante);
         }
 
-        .claro-desc {
-            font-size: 0.95rem;
+        td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             color: #cbd5e1;
-            margin: 0;
-            line-height: 1.4;
+            font-size: 1.1rem;
+            vertical-align: top;
         }
         
-        .claro-desc strong { color: #38bdf8; display: block; margin-bottom: 5px;}
+        td strong { color: #38bdf8; font-size: 1.3rem; }
 
         .info-box {
             background: rgba(255, 255, 255, 0.03);
@@ -237,16 +220,14 @@
 
         .checklist { list-style: none; padding: 0; margin: 0; }
         .checklist li {
-            padding: 10px 0 10px 30px;
+            padding: 8px 0 8px 30px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             position: relative;
             color: #cbd5e1;
-            font-size: 1.1rem;
-            line-height: 1.4;
         }
         
         .checklist li:before {
-            content: '✨';
+            content: '✓';
             color: #38bdf8;
             font-weight: bold;
             position: absolute;
@@ -254,32 +235,17 @@
             font-size: 1.2rem;
         }
 
-        .prompt-ejemplo {
-            color: #38bdf8;
-            font-size: 1.15rem;
-            font-style: italic;
-            line-height: 1.5;
-            text-align: left;
-            margin-top: 10px;
-        }
-
         .ejemplo-animado {
             width: 100%;
-            max-width: 350px;
-            border-radius: 16px;
-            margin: 15px auto 25px;
+            max-width: 300px;
+            border-radius: 12px;
+            margin: 10px auto 20px;
             display: block;
-            border: 3px solid rgba(255,255,255,0.15);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease;
-        }
-        
-        .ejemplo-animado:hover {
-            transform: scale(1.02);
+            border: 2px solid rgba(255,255,255,0.1);
         }
 
         .hidden { display: none; }
-        .titulo-seccion { color: #fff; font-size: 2.2rem; margin-top: 0; margin-bottom: 1.5rem; text-align: center; }
+        .titulo-seccion { color: #fff; font-size: 2.2rem; margin-top: 0; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body>
@@ -294,7 +260,7 @@
 
     <div class="container">
         
-        <!-- PASO 1: Nombre -->
+        <!-- PASO 1: Nombre (Esta es la que se mostrará primero) -->
         <div id="seccion1" class="section active">
             <h2 class="titulo-seccion titulo-candice">Paso 1: Identificación</h2>
             <div class="form-group">
@@ -313,9 +279,8 @@
             </div>
             
             <div class="info-box" style="text-align: center;">
-                <label style="color: #94a3b8; font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; display: inline-block;">Ejemplo de un resultado final animado (Cartoon):</label>
-                <!-- Aquí está la nueva imagen de referencia -->
-                <img src="image_231c00.jpg" alt="Ejemplo de resultado animado cartoon" class="ejemplo-animado" onerror="this.src='https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1dzNweTR5anMwZnBtdmJzZ2FvMGk3aGszZm9iOXJnbTVuMWw5diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L1R1tvI9svkIWwpVYr/giphy.gif'">
+                <label style="color: #94a3b8; font-size: 1rem;">Ejemplo del resultado de una instrucción básica:</label>
+                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1dzNweTR5anMwZnBtdmJzZ2FvMGk3aGszZm9iOXJnbTVuMWw5diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L1R1tvI9svkIWwpVYr/giphy.gif" alt="Ejemplo animado" class="ejemplo-animado">
             </div>
 
             <button class="btn" onclick="prepararDescarga('promptBasico', 'Instrucción Inicial')">
@@ -326,74 +291,68 @@
         <!-- PASO 3: Método CLARO -->
         <div id="seccion3" class="section">
             <h2 class="titulo-seccion titulo-candice">Paso 3: El Método C.L.A.R.O.</h2>
-            <p style="color: #cbd5e1; text-align: center; margin-bottom: 2rem;">Analice la siguiente estructura para mejorar la precisión y calidad visual de sus instrucciones (prompts):</p>
+            <p style="color: #cbd5e1;">Analice la siguiente estructura para mejorar la precisión de sus instrucciones (prompts):</p>
             
-            <div class="claro-grid">
-                <!-- Tarjeta C -->
-                <div class="claro-card">
-                    <div class="letra-globo color-c">C</div>
-                    <div class="claro-titulo-card">Contexto</div>
-                    <p class="claro-desc"><strong>¿Qué comparto y para qué?</strong><br>Ej. Adjunto mi foto para presentarme en el diplomado.</p>
-                </div>
-                
-                <!-- Tarjeta L -->
-                <div class="claro-card">
-                    <div class="letra-globo color-l">L</div>
-                    <div class="claro-titulo-card">Labor</div>
-                    <p class="claro-desc"><strong>¿Qué debe hacer la IA?</strong><br>Ej. Transforma mi foto en un estilo cartoon dibujado a mano.</p>
-                </div>
-
-                <!-- Tarjeta A -->
-                <div class="claro-card">
-                    <div class="letra-globo color-a">A</div>
-                    <div class="claro-titulo-card">Audiencia</div>
-                    <p class="claro-desc"><strong>¿Quién lo verá?</strong><br>Ej. Mis compañeros de clase, quiero transmitir alegría.</p>
-                </div>
-
-                <!-- Tarjeta R -->
-                <div class="claro-card">
-                    <div class="letra-globo color-r">R</div>
-                    <div class="claro-titulo-card">Requisitos</div>
-                    <p class="claro-desc"><strong>¿Qué detalles mantengo?</strong><br>Ej. Conserva mi ropa, rasgos faciales y usa fondo alegre.</p>
-                </div>
-
-                <!-- Tarjeta O -->
-                <div class="claro-card">
-                    <div class="letra-globo color-o">O</div>
-                    <div class="claro-titulo-card">Output</div>
-                    <p class="claro-desc"><strong>¿Qué formato?</strong><br>Ej. Entrega una sola imagen cuadrada, sin texto.</p>
-                </div>
-            </div>
-
-            <!-- EJEMPLO COMPLETO MEJORADO -->
-            <div class="info-box">
-                <strong style="color: #fff; display: block; margin-bottom: 5px; font-size: 1.2rem;">🎨 Ejemplo de un Prompt Súper Completo:</strong>
-                <div class="prompt-ejemplo">
-                    "Esta es mi fotografía. Quiero esta imagen para mostrársela a mis compañeros de clase de mi diplomado. Transforma mi foto en un dibujo estilo cartoon, animado y con un toque de dibujado a mano. En el resultado debo aparecer yo animada y muy alegre. Es muy importante que el dibujo no pierda mis rasgos faciales principales, el estilo de mi cabello, mi ropa actual, mis lentes y el color de mis ojos. Añade un fondo de aula bonita. Quiero que me entregues una imagen en formato cuadrado."
-                </div>
+            <div class="claro-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>Pregunta de apoyo</th>
+                            <th>Ejemplo de aplicación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>C</strong> — Contexto</td>
+                            <td>¿Qué imagen comparto y para qué la quiero transformar?</td>
+                            <td>Adjunto una fotografía mía. Quiero crear una tarjeta para presentarme en clase.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>L</strong> — Labor</td>
+                            <td>¿Qué quiero que haga la IA con mi fotografía?</td>
+                            <td>Transforma mi fotografía en un retrato doodle dibujado a mano, con estilo tierno.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>A</strong> — Audiencia</td>
+                            <td>¿Quién verá la imagen y qué quiero comunicarle?</td>
+                            <td>La verán mis compañeros de clase. Quiero transmitir alegría y que puedan reconocerme.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>R</strong> — Requisitos</td>
+                            <td>¿Qué debe conservar y qué detalles añadir?</td>
+                            <td>Conserva mi rostro reconocible, peinado y ropa. Usa trazos de lápiz y fondo celeste.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>O</strong> — Output (Formato)</td>
+                            <td>¿Cómo quiero recibir la imagen?</td>
+                            <td>Entrega una sola imagen cuadrada, con el retrato centrado, sin texto.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             
             <button class="btn btn-blue" onclick="mostrarSeccion('seccion4')">Entendido, redactar mi instrucción especializada</button>
         </div>
 
-        <!-- PASO 4: Prompt Final y Lista de Verificación Específica -->
+        <!-- PASO 4: Prompt Final -->
         <div id="seccion4" class="section">
             <h2 class="titulo-seccion titulo-candice">Paso 4: Su Prompt Especializado</h2>
             
             <div class="info-box">
-                <strong style="color: #fff; display: block; margin-bottom: 10px; font-size: 1.2rem;">💡 Lista de Verificación antes de enviar:</strong>
+                <strong style="color: #fff; display: block; margin-bottom: 10px;">Lista de verificación antes de enviar:</strong>
                 <ul class="checklist">
-                    <li><strong>[C]</strong> ¿Aclaré "esta soy yo" y para qué necesito la imagen (ej. para el diplomado)?</li>
-                    <li><strong>[L]</strong> ¿Especifiqué que quiero un estilo cartoon, animado y dibujado a mano?</li>
-                    <li><strong>[A]</strong> ¿Mencioné que es para mis compañeros y que quiero verme alegre/animada?</li>
-                    <li><strong>[R]</strong> ¿Detallé todo lo que no quiero perder (mis rasgos faciales, cabello, ropa, fondo, lentes, ojos)?</li>
-                    <li><strong>[O]</strong> ¿Indiqué claramente que necesito que sea una imagen cuadrada?</li>
+                    <li>¿Expliqué para qué quiero la imagen?</li>
+                    <li>¿Dije claramente qué transformación necesito?</li>
+                    <li>¿Identifiqué quién verá el resultado?</li>
+                    <li>¿Especifiqué qué conservar y qué cambiar?</li>
+                    <li>¿Elegí el formato de la imagen?</li>
                 </ul>
             </div>
 
             <div class="form-group">
-                <label for="promptMejorado">Redacte su prompt especializado uniendo todos estos detalles:</label>
-                <textarea id="promptMejorado" placeholder="Escriba aquí aplicando su propio estilo a cada punto..."></textarea>
+                <label for="promptMejorado">Redacte su prompt especializado aplicando el cuadro C.L.A.R.O.:</label>
+                <textarea id="promptMejorado" placeholder="Escriba aquí considerando contexto, labor, audiencia, requisitos y formato..."></textarea>
             </div>
             
             <button class="btn btn-volver" onclick="mostrarSeccion('seccion3')">
@@ -405,7 +364,7 @@
             </button>
             
             <div id="mensajeFinal" class="hidden" style="text-align: center; color: #38bdf8; font-size: 1.3rem; font-weight: bold; margin-top: 1.5rem;">
-                ¡Excelente trabajo! Verifique su galería de descargas y comparta su tarjeta en el grupo de WhatsApp.
+                ¡Excelente trabajo! Verifique su galería y comparta la imagen en el grupo.
             </div>
         </div>
 
@@ -474,7 +433,7 @@
             const margenInterior = 40;
             const anchoTarjeta = anchoCanvas - (margenExterior * 2);
             const maxWidthTexto = anchoTarjeta - (margenInterior * 2);
-            const lineHeight = 38; 
+            const lineHeight = 35;
             
             ctx.font = "24px 'Quicksand', sans-serif";
             const palabras = texto.split(' ');
@@ -531,7 +490,7 @@
             let currentY = margenExterior + margenInterior + 20;
 
             ctx.fillStyle = "#EA2027"; 
-            ctx.font = "400 38px 'Pacifico', cursive";
+            ctx.font = "400 36px 'Pacifico', cursive";
             ctx.fillText(nombre, startX, currentY);
             
             currentY += 40;
@@ -549,7 +508,7 @@
             ctx.lineWidth = 2;
             ctx.stroke();
 
-            currentY += 45;
+            currentY += 40;
 
             ctx.fillStyle = "#f8fafc";
             ctx.font = "24px 'Quicksand', sans-serif";
