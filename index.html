@@ -267,9 +267,9 @@
             <h2 class="titulo-seccion titulo-candice">Paso 1: Identificación</h2>
             <div class="form-group">
                 <label for="nombres">Escriba su nombre y apellido:</label>
-                <input type="text" id="nombres" placeholder="Ej. Juan Pérez">
+                <input type="text" id="nombres" placeholder="Ej. Mariela Limachi">
             </div>
-            <button class="btn btn-blue" onclick="validarPaso1()">Continuar al siguiente paso</button>
+            <button class="btn btn-blue" onclick="validarPaso1()">Crear mi prompt para convertirme en un dibujo cartoon</button>
         </div>
 
         <!-- PASO 2: Prompt Básico y Ejemplo -->
@@ -282,7 +282,6 @@
             
             <div class="info-box" style="text-align: center;">
                 <label style="color: #94a3b8; font-size: 1rem;">Ejemplo del resultado de un prompt sencillo:</label>
-                <!-- Imagen animada de ejemplo (GIF educativo genérico). Puedes reemplazar el enlace si lo deseas. -->
                 <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1dzNweTR5anMwZnBtdmJzZ2FvMGk3aGszZm9iOXJnbTVuMWw5diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L1R1tvI9svkIWwpVYr/giphy.gif" alt="Ejemplo animado" class="ejemplo-animado">
             </div>
 
@@ -449,7 +448,7 @@
             ctxFinal.lineWidth = 15;
             ctxFinal.strokeRect(7, 7, canvas.width - 14, canvas.height - 14);
 
-            // TÍTULO (Estilo estándar en el canvas para asegurar que todos los celulares lo lean bien)
+            // TÍTULO
             ctxFinal.fillStyle = "#ffffff";
             ctxFinal.font = "bold 32px Arial, sans-serif";
             ctxFinal.fillText(tipo.toUpperCase(), margenIzquierdo, 80);
