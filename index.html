@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluación Mágica - CEPIES</title>
+    <title>Evaluación Interactiva - CEPIES</title>
     
-    <!-- Importando fuente cursiva de Google Fonts -->
+    <!-- Importando fuentes de Google Fonts (Estilo Candice/Cursiva elegante y una legible para el cuerpo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --disney-dark: #040714;
-            --disney-blue: #1a1d29;
-            --disney-glow: #0063e5;
+            --fondo-oscuro: #0f172a;
+            --fondo-tarjeta: #1e293b;
+            --azul-brillante: #3b82f6;
             --rojo-cepies: #EA2027;
-            --blanco: #f9f9f9;
+            --blanco: #f8fafc;
+            --texto-secundario: #94a3b8;
         }
 
         body {
-            /* Aplicando la fuente cursiva a todo el documento */
-            font-family: 'Caveat', cursive, 'Comic Sans MS', sans-serif;
-            font-size: 1.4rem; /* Tamaño más grande para facilitar la lectura de la cursiva */
-            background: linear-gradient(135deg, var(--disney-dark) 0%, #0d122b 100%);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.15rem;
+            background: linear-gradient(135deg, var(--fondo-oscuro) 0%, #172554 100%);
             color: var(--blanco);
             margin: 0;
             padding: 0;
@@ -31,6 +31,12 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+        }
+
+        /* Estilo Candice / Cursiva para los títulos */
+        h1, h2, .titulo-candice {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
         }
 
         header {
@@ -44,279 +50,265 @@
             max-width: 140px;
             border-radius: 50%;
             margin-bottom: 1rem;
-            box-shadow: 0 0 25px rgba(234, 32, 39, 0.4);
+            box-shadow: 0 0 20px rgba(234, 32, 39, 0.3);
             border: 3px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
         }
-        
-        .logo:hover { transform: scale(1.05) rotate(3deg); }
 
-        h1 { font-size: 2.2rem; margin: 0.2rem 0; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        h2 { font-size: 1.8rem; color: #a8b1c4; margin: 0.2rem 0; font-weight: 500; }
-        h3 { font-size: 1.5rem; margin: 0.5rem 0; letter-spacing: 1px; color: #7f8a9e; }
+        h1 { font-size: 2.2rem; margin: 0.2rem 0; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px; }
+        h2 { font-size: 1.8rem; color: #cbd5e1; margin: 0.2rem 0; font-family: 'Quicksand', sans-serif; font-weight: 600; }
+        h3 { font-size: 1.3rem; margin: 0.5rem 0; color: #94a3b8; font-family: 'Quicksand', sans-serif; }
         
         .author { 
             margin-top: 1.5rem; 
-            font-size: 1.6rem;
+            font-size: 1.2rem;
             font-weight: 700; 
             color: #fff; 
-            background: linear-gradient(90deg, #d31027 0%, #ea384d 100%);
+            background: var(--rojo-cepies);
             display: inline-block; 
-            padding: 5px 25px; 
+            padding: 8px 25px; 
             border-radius: 50px;
             box-shadow: 0 4px 15px rgba(234, 32, 39, 0.4);
+            font-family: 'Quicksand', sans-serif;
         }
 
         .container {
             width: 90%;
-            max-width: 850px;
-            margin: 1rem auto 3rem;
+            max-width: 800px;
+            margin: 1rem auto 4rem;
             position: relative;
         }
 
         .section {
-            background: rgba(26, 29, 41, 0.7);
+            background: rgba(30, 41, 59, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 2.5rem;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             margin-bottom: 2rem;
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
             display: none;
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         .section.active {
             display: block;
-            animation: floatUp 0.6s forwards;
+            animation: fadeInUp 0.5s forwards;
         }
 
-        @keyframes floatUp {
+        @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .form-group { margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.8rem; }
 
         label {
             display: block;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 0.8rem;
-            color: #e1e6f0;
-            font-size: 1.6rem;
+            color: #e2e8f0;
+            font-size: 1.2rem;
         }
 
         input[type="text"], textarea {
             width: 100%;
             padding: 16px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(15, 23, 42, 0.6);
             border: 2px solid rgba(255, 255, 255, 0.1);
             color: #fff;
-            border-radius: 16px;
+            border-radius: 12px;
             box-sizing: border-box;
-            font-family: inherit;
-            font-size: 1.5rem;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
         }
 
-        input[type="text"]::placeholder, textarea::placeholder { color: #6b7688; }
-        
         input[type="text"]:focus, textarea:focus {
             outline: none;
-            border-color: var(--disney-glow);
-            box-shadow: 0 0 15px rgba(0, 99, 229, 0.4);
-            background: rgba(0, 0, 0, 0.5);
+            border-color: var(--azul-brillante);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+            background: rgba(15, 23, 42, 0.9);
         }
 
         textarea { resize: vertical; min-height: 120px; }
 
         .btn {
-            background: linear-gradient(135deg, #f0141e 0%, #b20a12 100%);
+            background: var(--rojo-cepies);
             color: var(--blanco);
             border: none;
             padding: 16px 28px;
-            font-family: inherit;
-            font-size: 1.6rem;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.2rem;
             font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: inline-block;
+            display: block;
             text-align: center;
             width: 100%;
             box-sizing: border-box;
-            box-shadow: 0 8px 20px rgba(234, 32, 39, 0.3);
+            box-shadow: 0 8px 20px rgba(234, 32, 39, 0.2);
+            margin-top: 15px;
         }
 
         .btn:hover { 
-            transform: scale(1.02) translateY(-2px); 
-            box-shadow: 0 10px 25px rgba(234, 32, 39, 0.6);
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 25px rgba(234, 32, 39, 0.4);
         }
         
         .btn-blue { 
-            background: linear-gradient(135deg, #0063e5 0%, #00439c 100%);
-            box-shadow: 0 8px 20px rgba(0, 99, 229, 0.3);
+            background: var(--azul-brillante);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
         }
         
         .btn-blue:hover { 
-            box-shadow: 0 10px 25px rgba(0, 99, 229, 0.6);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
         }
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #6b7688;
-            box-shadow: none;
-            width: auto;
-            padding: 10px 20px;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: #fff;
-            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        .btn-volver {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            margin-bottom: 15px;
         }
 
-        .buttons-row {
-            display: flex;
-            gap: 15px;
-            align-items: center;
+        .btn-volver:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        /* Tabla Mágica CLARO */
+        /* Estilos de la tabla CLARO */
         .claro-table-wrapper {
             width: 100%;
             overflow-x: auto;
             margin: 1.5rem 0;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(15, 23, 42, 0.5);
             text-align: left;
         }
 
         th {
-            background: rgba(0, 99, 229, 0.2);
+            background: rgba(59, 130, 246, 0.2);
             color: #fff;
-            padding: 15px;
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--disney-glow);
+            padding: 16px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--azul-brillante);
         }
 
         td {
-            padding: 15px;
+            padding: 16px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            color: #d1d8e6;
+            color: #cbd5e1;
+            font-size: 1.1rem;
             vertical-align: top;
         }
-
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.05);
-        }
         
-        td strong {
-            color: #4cd137;
-            font-size: 1.7rem;
-        }
+        td strong { color: #38bdf8; font-size: 1.3rem; }
 
         .info-box {
             background: rgba(255, 255, 255, 0.03);
-            border-left: 4px solid var(--disney-glow);
+            border-left: 4px solid var(--azul-brillante);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            border-radius: 0 16px 16px 0;
+            border-radius: 0 12px 12px 0;
         }
 
         .checklist { list-style: none; padding: 0; margin: 0; }
         .checklist li {
-            padding: 10px 0 10px 35px;
+            padding: 8px 0 8px 30px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             position: relative;
-            color: #d1d8e6;
-            font-size: 1.5rem;
+            color: #cbd5e1;
         }
         
         .checklist li:before {
-            content: '✨';
+            content: '✓';
+            color: #38bdf8;
+            font-weight: bold;
             position: absolute;
             left: 0;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
 
-        .prompt-example {
-            color: #b0c4de;
-            font-size: 1.5rem;
-            line-height: 1.4;
+        .ejemplo-animado {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 12px;
+            margin: 10px auto 20px;
+            display: block;
+            border: 2px solid rgba(255,255,255,0.1);
         }
 
-        .title-friendly { color: #fff; font-size: 2.2rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
         .hidden { display: none; }
-        
-        .success-msg { 
-            text-align: center; 
-            color: #4cd137; 
-            font-size: 2rem; 
-            font-weight: bold; 
-            margin-top: 2rem;
-            animation: floatUp 0.5s ease;
-        }
+        .titulo-seccion { color: #fff; font-size: 2.2rem; margin-top: 0; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="logo-cepies.jpg" alt="Logo CEPIES" class="logo" onerror="this.src='https://via.placeholder.com/150/1a1d29/FFFFFF?text=Logo+CEPIES'">
-        <h1>Diplomado en Educación Superior</h1>
+        <img src="logo-cepies.jpg" alt="Logo CEPIES" class="logo" onerror="this.src='https://via.placeholder.com/150/1e293b/FFFFFF?text=Logo+CEPIES'">
+        <h1 class="titulo-candice">Diplomado en Educación Superior</h1>
         <h2>Gestión Curricular Basada en Competencias</h2>
         <h3>MÓDULO 3: Evaluación de Aprendizaje • POST GRADO - CEPIES</h3>
-        <p class="author">LIC. Mariela N. Limachi L.</p>
+        <p class="author">Lic. Mariela Nataly Limachi Limachi</p>
     </header>
 
     <div class="container">
         
-        <!-- PARTE 1 -->
+        <!-- PASO 1: Nombre -->
         <div id="seccion1" class="section active">
-            <h2 class="title-friendly">👋 ¡Hola! Empecemos la magia...</h2>
+            <h2 class="titulo-seccion titulo-candice">Paso 1: Identificación</h2>
             <div class="form-group">
-                <label for="nombres">¿Me dices tu título y nombre completo, por favor?</label>
-                <input type="text" id="nombres" placeholder="Ej. Licenciada Mariela Limachi / Licenciado Juan Pérez">
+                <label for="nombres">Escriba su nombre y apellido:</label>
+                <input type="text" id="nombres" placeholder="Ej. Juan Pérez">
             </div>
+            <button class="btn btn-blue" onclick="validarPaso1()">Continuar al siguiente paso</button>
+        </div>
+
+        <!-- PASO 2: Prompt Básico y Ejemplo -->
+        <div id="seccion2" class="section">
+            <h2 class="titulo-seccion titulo-candice">Paso 2: Su Primer Prompt</h2>
             <div class="form-group">
-                <label for="promptBasico">Imagina que pides tu primer dibujo. ¿Cuál sería el texto (prompt) básico que le enviarías a la IA?</label>
-                <textarea id="promptBasico" placeholder="Ej. Hazme una imagen estilo cartoon donde me vea muy profesional para mis clases..."></textarea>
+                <label for="promptBasico">Escriba un prompt básico para crear una imagen animada de usted mismo:</label>
+                <textarea id="promptBasico" placeholder="Ej. Quiero una foto mía estilo cartoon que se vea profesional para mis clases..."></textarea>
             </div>
-            <button class="btn" onclick="descargarPrompt('promptBasico', 'Mi Primer Intento')">
-                🖼️ ¡Descargar mi imagen JPG para WhatsApp!
+            
+            <div class="info-box" style="text-align: center;">
+                <label style="color: #94a3b8; font-size: 1rem;">Ejemplo del resultado de un prompt sencillo:</label>
+                <!-- Imagen animada de ejemplo (GIF educativo genérico). Puedes reemplazar el enlace si lo deseas. -->
+                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1dzNweTR5anMwZnBtdmJzZ2FvMGk3aGszZm9iOXJnbTVuMWw5diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L1R1tvI9svkIWwpVYr/giphy.gif" alt="Ejemplo animado" class="ejemplo-animado">
+            </div>
+
+            <button class="btn" onclick="descargarPrompt('promptBasico', 'Prompt Básico')">
+                Presionar aquí para descargar el prompt y compartirlo en el grupo del módulo 💬😃
             </button>
         </div>
 
-        <!-- PARTE 2 -->
-        <div id="seccion2" class="section">
-            <h2 class="title-friendly">🌟 Paso 2: El método C.L.A.R.O.</h2>
-            <p style="color: #a8b1c4; line-height: 1.4;">Para que la Inteligencia Artificial cree algo asombroso, necesitamos darle los detalles correctos. Mira esta tabla mágica:</p>
+        <!-- PASO 3: Método CLARO -->
+        <div id="seccion3" class="section">
+            <h2 class="titulo-seccion titulo-candice">Paso 3: El Método C.L.A.R.O.</h2>
+            <p style="color: #cbd5e1;">Analice la siguiente estructura para mejorar la precisión de sus instrucciones (prompts):</p>
             
-            <!-- Nueva Tabla Convertida -->
             <div class="claro-table-wrapper">
                 <table>
                     <thead>
                         <tr>
                             <th>Elemento</th>
-                            <th>Pregunta que me ayuda</th>
-                            <th>Ejemplo</th>
+                            <th>Pregunta de apoyo</th>
+                            <th>Ejemplo de aplicación</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><strong>C</strong> — Contexto</td>
-                            <td>¿Qué imagen estoy compartiendo y para qué quiero transformarla?</td>
+                            <td>¿Qué imagen comparto y para qué la quiero transformar?</td>
                             <td>Adjunto una fotografía mía. Quiero crear una tarjeta para presentarme en clase.</td>
                         </tr>
                         <tr>
@@ -331,56 +323,52 @@
                         </tr>
                         <tr>
                             <td><strong>R</strong> — Requisitos</td>
-                            <td>¿Qué debe conservar? ¿Qué detalles quiero añadir?</td>
-                            <td>Conserva mi rostro reconocible, peinado y ropa. Usa trazos de lápiz, fondo celeste suave y pequeñas estrellas alrededor.</td>
+                            <td>¿Qué debe conservar y qué detalles añadir?</td>
+                            <td>Conserva mi rostro reconocible, peinado y ropa. Usa trazos de lápiz y fondo celeste.</td>
                         </tr>
                         <tr>
                             <td><strong>O</strong> — Output (Formato)</td>
                             <td>¿Cómo quiero recibir la imagen?</td>
-                            <td>Entrega una imagen cuadrada, con el retrato centrado y espacio alrededor, sin texto.</td>
+                            <td>Entrega una sola imagen cuadrada, con el retrato centrado, sin texto.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             
-            <div class="info-box">
-                <strong style="color: #fff; display: block; margin-bottom: 5px;">🎨 Así se ve un prompt completo uniéndolo todo:</strong>
-                <div class="prompt-example">
-                    "Adjunto una fotografía mía. Quiero crear una tarjeta para presentarme en clase. Transforma mi fotografía en un retrato doodle dibujado a mano, con estilo tierno. La imagen será para mis compañeros de clase; quiero transmitir alegría y que puedan reconocerme. Conserva mis rasgos faciales reconocibles, tono de piel, peinado y ropa. Usa trazos de lápiz y sombreado suave con lápices de colores. Añade un fondo celeste suave con textura de papel y pequeñas estrellas alrededor, sin cubrir mi rostro. Entrega una sola imagen cuadrada, con el retrato centrado y espacio alrededor, sin texto."
-                </div>
-            </div>
-            
-            <button class="btn btn-blue" onclick="mostrarSeccion('seccion3')">¡Entendido! ¡Vamos a crear mi súper prompt! 🚀</button>
+            <button class="btn btn-blue" onclick="mostrarSeccion('seccion4')">Entendido, redactar mi prompt avanzado</button>
         </div>
 
-        <!-- PARTE 3 -->
-        <div id="seccion3" class="section">
-            <button class="btn btn-secondary" onclick="mostrarSeccion('seccion2')">⬅️ Anterior (Ver tabla CLARO)</button>
-            <h2 class="title-friendly" style="margin-top: 10px;">🎓 Paso 3: ¡Tu turno de brillar!</h2>
+        <!-- PASO 4: Prompt Final -->
+        <div id="seccion4" class="section">
+            <h2 class="titulo-seccion titulo-candice">Paso 4: Prompt Especializado</h2>
             
             <div class="info-box">
-                <strong style="color: #fff; display: block; margin-bottom: 5px;">💡 Pistas antes de enviarlo:</strong>
+                <strong style="color: #fff; display: block; margin-bottom: 10px;">Lista de verificación antes de enviar:</strong>
                 <ul class="checklist">
-                    <li>¿Le conté a la IA para qué quiero la imagen?</li>
-                    <li>¿Le expliqué qué estilo exacto necesito?</li>
-                    <li>¿Pensé en las personas que verán el resultado?</li>
-                    <li>¿Le aclaré qué cosas de mí debe conservar?</li>
-                    <li>¿Le pedí un formato en especial (cuadrado, horizontal)?</li>
-                    <li>¿Es mi foto o tengo permiso para usarla?</li>
+                    <li>¿Expliqué para qué quiero la imagen?</li>
+                    <li>¿Dije claramente qué transformación necesito?</li>
+                    <li>¿Identifiqué quién verá el resultado?</li>
+                    <li>¿Especifiqué qué conservar y qué cambiar?</li>
+                    <li>¿Elegí el formato de la imagen?</li>
                 </ul>
             </div>
 
             <div class="form-group">
-                <label for="promptMejorado">¡Escribe aquí tu prompt maestro utilizando todo lo aprendido!</label>
-                <textarea id="promptMejorado" placeholder="Escribe aquí pensando en el contexto, la labor, tu audiencia, los requisitos y el formato..."></textarea>
+                <label for="promptMejorado">Redacte su prompt especializado aplicando el cuadro C.L.A.R.O.:</label>
+                <textarea id="promptMejorado" placeholder="Escriba aquí considerando contexto, labor, audiencia, requisitos y formato..."></textarea>
             </div>
             
-            <button class="btn" onclick="descargarPrompt('promptMejorado', 'Mi Súper Prompt')">
-                🌟 ¡Descargar mi versión FINAL en JPG para el grupo!
+            <!-- Botón de regreso ARRIBA del botón de descarga -->
+            <button class="btn btn-volver" onclick="mostrarSeccion('seccion3')">
+                👈 Volver al cuadro C.L.A.R.O.
             </button>
 
-            <div id="mensajeFinal" class="hidden success-msg">
-                ¡Muchísimas gracias, colega! 🎉<br><span style="color: #fff; font-weight: normal; font-size: 1.5rem;">¡Ahora miremos cómo nos vemos animados tipo cartoon!</span>
+            <button class="btn" onclick="descargarPrompt('promptMejorado', 'Prompt Especializado')">
+                Presionar aquí para descargar el prompt y compartirlo en el grupo del módulo 💬😃
+            </button>
+            
+            <div id="mensajeFinal" class="hidden" style="text-align: center; color: #38bdf8; font-size: 1.3rem; font-weight: bold; margin-top: 1.5rem;">
+                ¡Excelente trabajo! Verifique su galería y comparta la imagen en el grupo.
             </div>
         </div>
 
@@ -393,85 +381,115 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        function validarPaso1() {
+            const nombre = document.getElementById('nombres').value.trim();
+            if(!nombre) {
+                alert("Por favor, escriba su nombre y apellido para continuar.");
+                return;
+            }
+            mostrarSeccion('seccion2');
+        }
+
         function descargarPrompt(textareaId, tipo) {
             const nombre = document.getElementById('nombres').value.trim();
             const texto = document.getElementById(textareaId).value.trim();
 
-            if(!nombre || !texto) {
-                alert("¡Ups! Por favor, no olvides anotar tu título y nombre, además de escribir tu prompt.");
+            if(!texto) {
+                alert("Por favor, escriba su prompt antes de descargar.");
                 return;
             }
 
+            // CREACIÓN DINÁMICA DEL TAMAÑO DE LA IMAGEN
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = 800;
-            canvas.height = 800;
-
-            // Fondo amigable
-            ctx.fillStyle = "#1a1d29";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Borde redondeado
-            ctx.strokeStyle = "#EA2027";
-            ctx.lineWidth = 15;
-            ctx.strokeRect(7, 7, canvas.width - 14, canvas.height - 14);
-
-            // Título
-            ctx.fillStyle = "#ffffff";
-            ctx.font = "bold 34px 'Comic Sans MS', Arial, sans-serif";
-            ctx.fillText("✨ " + tipo.toUpperCase() + " ✨", 50, 80);
             
-            // Subtítulo con nombre
-            ctx.fillStyle = "#EA2027";
-            ctx.font = "bold 26px 'Comic Sans MS', Arial, sans-serif";
-            ctx.fillText(nombre, 50, 130);
-
-            // Línea separadora
-            ctx.beginPath();
-            ctx.moveTo(50, 150);
-            ctx.lineTo(750, 150);
-            ctx.strokeStyle = "rgba(255,255,255,0.2)";
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
-            // Texto del prompt
-            ctx.fillStyle = "#e1e6f0";
-            ctx.font = "24px 'Comic Sans MS', Arial, sans-serif";
-            const palabras = texto.split(' ');
-            let linea = '';
-            let y = 200;
+            // Variables de medición
+            const anchoCanvas = 800;
             const maxWidth = 700;
+            const margenIzquierdo = 50;
+            const lineHeight = 35;
+            
+            // Configuramos la fuente temporalmente solo para medir el texto
+            ctx.font = "24px Arial, sans-serif";
+            const palabras = texto.split(' ');
+            let lineas = [];
+            let lineaActual = '';
 
+            // Lógica para dividir el texto en varias líneas
             for(let n = 0; n < palabras.length; n++) {
-                let testLinea = linea + palabras[n] + ' ';
+                let testLinea = lineaActual + palabras[n] + ' ';
                 let metrica = ctx.measureText(testLinea);
                 if (metrica.width > maxWidth && n > 0) {
-                    ctx.fillText(linea, 50, y);
-                    linea = palabras[n] + ' ';
-                    y += 35; 
+                    lineas.push(lineaActual);
+                    lineaActual = palabras[n] + ' ';
                 } else {
-                    linea = testLinea;
+                    lineaActual = testLinea;
                 }
             }
-            ctx.fillText(linea, 50, y);
+            lineas.push(lineaActual);
 
-            // Pie de página
-            ctx.fillStyle = "#6b7688";
-            ctx.font = "italic 20px 'Comic Sans MS', Arial, sans-serif";
-            ctx.fillText("Módulo 3: Evaluación de Aprendizaje • CEPIES", 50, 750);
+            // Calcular el alto total necesario para el lienzo (canvas)
+            const altoEncabezado = 180;
+            const altoTexto = lineas.length * lineHeight;
+            const altoPieDePagina = 100;
+            const altoTotal = altoEncabezado + altoTexto + altoPieDePagina;
 
-            // Descarga
+            canvas.width = anchoCanvas;
+            canvas.height = Math.max(altoTotal, 400); // Mínimo 400px de alto
+
+            // Re-obtener el contexto para dibujar ya con las medidas oficiales
+            const ctxFinal = canvas.getContext('2d');
+
+            // Fondo principal oscuro
+            ctxFinal.fillStyle = "#0f172a";
+            ctxFinal.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Borde exterior rojo
+            ctxFinal.strokeStyle = "#EA2027";
+            ctxFinal.lineWidth = 15;
+            ctxFinal.strokeRect(7, 7, canvas.width - 14, canvas.height - 14);
+
+            // TÍTULO (Estilo estándar en el canvas para asegurar que todos los celulares lo lean bien)
+            ctxFinal.fillStyle = "#ffffff";
+            ctxFinal.font = "bold 32px Arial, sans-serif";
+            ctxFinal.fillText(tipo.toUpperCase(), margenIzquierdo, 80);
+            
+            // NOMBRE DEL PARTICIPANTE
+            ctxFinal.fillStyle = "#EA2027";
+            ctxFinal.font = "bold 26px Arial, sans-serif";
+            ctxFinal.fillText("Participante: " + nombre, margenIzquierdo, 130);
+
+            // LÍNEA SEPARADORA
+            ctxFinal.beginPath();
+            ctxFinal.moveTo(margenIzquierdo, 150);
+            ctxFinal.lineTo(750, 150);
+            ctxFinal.strokeStyle = "rgba(255,255,255,0.2)";
+            ctxFinal.lineWidth = 2;
+            ctxFinal.stroke();
+
+            // IMPRIMIR EL TEXTO DEL PROMPT LÍNEA POR LÍNEA
+            ctxFinal.fillStyle = "#e2e8f0";
+            ctxFinal.font = "24px Arial, sans-serif";
+            let posicionY = 200;
+            for(let i = 0; i < lineas.length; i++) {
+                ctxFinal.fillText(lineas[i], margenIzquierdo, posicionY);
+                posicionY += lineHeight;
+            }
+
+            // PIE DE PÁGINA (Modulo 3)
+            ctxFinal.fillStyle = "#64748b";
+            ctxFinal.font = "italic 20px Arial, sans-serif";
+            ctxFinal.fillText("Módulo 3: Evaluación de Aprendizaje • CEPIES", margenIzquierdo, canvas.height - 40);
+
+            // FORZAR DESCARGA
             const enlace = document.createElement('a');
-            enlace.download = tipo.replace(/ /g,"_") + "_" + nombre.replace(/ /g,"_") + ".jpg";
+            enlace.download = "Prompt_" + nombre.replace(/ /g,"_") + ".jpg";
             enlace.href = canvas.toDataURL("image/jpeg");
             enlace.click();
 
-            // Magia automática de redirección
+            // ACCIONES POST-DESCARGA
             if(textareaId === 'promptBasico') {
-                // Automáticamente pasa a la sección 2 después de medio segundo
-                setTimeout(() => {
-                    mostrarSeccion('seccion2');
-                }, 800);
+                setTimeout(() => { mostrarSeccion('seccion3'); }, 1000);
             } else {
                 document.getElementById('mensajeFinal').classList.remove('hidden');
             }
