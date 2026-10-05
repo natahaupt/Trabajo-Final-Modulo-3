@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Mágica - CEPIES</title>
+    
+    <!-- Importando fuente cursiva de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --disney-dark: #040714;
+            --disney-blue: #1a1d29;
+            --disney-glow: #0063e5;
+            --rojo-cepies: #EA2027;
+            --blanco: #f9f9f9;
+        }
+
+        body {
+            /* Aplicando la fuente cursiva a todo el documento */
+            font-family: 'Caveat', cursive, 'Comic Sans MS', sans-serif;
+            font-size: 1.4rem; /* Tamaño más grande para facilitar la lectura de la cursiva */
+            background: linear-gradient(135deg, var(--disney-dark) 0%, #0d122b 100%);
+            color: var(--blanco);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 2.5rem 1rem 1.5rem;
+            background: transparent;
+        }
+
+        .logo {
+            max-width: 140px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 25px rgba(234, 32, 39, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover { transform: scale(1.05) rotate(3deg); }
+
+        h1 { font-size: 2.2rem; margin: 0.2rem 0; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        h2 { font-size: 1.8rem; color: #a8b1c4; margin: 0.2rem 0; font-weight: 500; }
+        h3 { font-size: 1.5rem; margin: 0.5rem 0; letter-spacing: 1px; color: #7f8a9e; }
+        
+        .author { 
+            margin-top: 1.5rem; 
+            font-size: 1.6rem;
+            font-weight: 700; 
+            color: #fff; 
+            background: linear-gradient(90deg, #d31027 0%, #ea384d 100%);
+            display: inline-block; 
+            padding: 5px 25px; 
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(234, 32, 39, 0.4);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 1rem auto 3rem;
+            position: relative;
+        }
+
+        .section {
+            background: rgba(26, 29, 41, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            display: none;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section.active {
+            display: block;
+            animation: floatUp 0.6s forwards;
+        }
+
+        @keyframes floatUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #e1e6f0;
+            font-size: 1.6rem;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 16px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]::placeholder, textarea::placeholder { color: #6b7688; }
+        
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: var(--disney-glow);
+            box-shadow: 0 0 15px rgba(0, 99, 229, 0.4);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        textarea { resize: vertical; min-height: 120px; }
+
+        .btn {
+            background: linear-gradient(135deg, #f0141e 0%, #b20a12 100%);
+            color: var(--blanco);
+            border: none;
+            padding: 16px 28px;
+            font-family: inherit;
+            font-size: 1.6rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 8px 20px rgba(234, 32, 39, 0.3);
+        }
+
+        .btn:hover { 
+            transform: scale(1.02) translateY(-2px); 
+            box-shadow: 0 10px 25px rgba(234, 32, 39, 0.6);
+        }
+        
+        .btn-blue { 
+            background: linear-gradient(135deg, #0063e5 0%, #00439c 100%);
+            box-shadow: 0 8px 20px rgba(0, 99, 229, 0.3);
+        }
+        
+        .btn-blue:hover { 
+            box-shadow: 0 10px 25px rgba(0, 99, 229, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #6b7688;
+            box-shadow: none;
+            width: auto;
+            padding: 10px 20px;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        .buttons-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Tabla Mágica CLARO */
+        .claro-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        th {
+            background: rgba(0, 99, 229, 0.2);
+            color: #fff;
+            padding: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--disney-glow);
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: #d1d8e6;
+            vertical-align: top;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        td strong {
+            color: #4cd137;
+            font-size: 1.7rem;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--disney-glow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 16px 16px 0;
+        }
+
+        .checklist { list-style: none; padding: 0; margin: 0; }
+        .checklist li {
+            padding: 10px 0 10px 35px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            color: #d1d8e6;
+            font-size: 1.5rem;
+        }
+        
+        .checklist li:before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            font-size: 1.3rem;
+        }
+
+        .prompt-example {
+            color: #b0c4de;
+            font-size: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .title-friendly { color: #fff; font-size: 2.2rem; margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        .hidden { display: none; }
+        
+        .success-msg { 
+            text-align: center; 
+            color: #4cd137; 
+            font-size: 2rem; 
+            font-weight: bold; 
+            margin-top: 2rem;
+            animation: floatUp 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo-cepies.jpg" alt="Logo CEPIES" class="logo" onerror="this.src='https://via.placeholder.com/150/1a1d29/FFFFFF?text=Logo+CEPIES'">
+        <h1>Diplomado en Educación Superior</h1>
+        <h2>Gestión Curricular Basada en Competencias</h2>
+        <h3>MÓDULO 3: Evaluación de Aprendizaje • POST GRADO - CEPIES</h3>
+        <p class="author">LIC. Mariela N. Limachi L.</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- PARTE 1 -->
+        <div id="seccion1" class="section active">
+            <h2 class="title-friendly">👋 ¡Hola! Empecemos la magia...</h2>
+            <div class="form-group">
+                <label for="nombres">¿Me dices tu título y nombre completo, por favor?</label>
+                <input type="text" id="nombres" placeholder="Ej. Licenciada Mariela Limachi / Licenciado Juan Pérez">
+            </div>
+            <div class="form-group">
+                <label for="promptBasico">Imagina que pides tu primer dibujo. ¿Cuál sería el texto (prompt) básico que le enviarías a la IA?</label>
+                <textarea id="promptBasico" placeholder="Ej. Hazme una imagen estilo cartoon donde me vea muy profesional para mis clases..."></textarea>
+            </div>
+            <button class="btn" onclick="descargarPrompt('promptBasico', 'Mi Primer Intento')">
+                🖼️ ¡Descargar mi imagen JPG para WhatsApp!
+            </button>
+        </div>
+
+        <!-- PARTE 2 -->
+        <div id="seccion2" class="section">
+            <h2 class="title-friendly">🌟 Paso 2: El método C.L.A.R.O.</h2>
+            <p style="color: #a8b1c4; line-height: 1.4;">Para que la Inteligencia Artificial cree algo asombroso, necesitamos darle los detalles correctos. Mira esta tabla mágica:</p>
+            
+            <!-- Nueva Tabla Convertida -->
+            <div class="claro-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>Pregunta que me ayuda</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>C</strong> — Contexto</td>
+                            <td>¿Qué imagen estoy compartiendo y para qué quiero transformarla?</td>
+                            <td>Adjunto una fotografía mía. Quiero crear una tarjeta para presentarme en clase.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>L</strong> — Labor</td>
+                            <td>¿Qué quiero que haga la IA con mi fotografía?</td>
+                            <td>Transforma mi fotografía en un retrato doodle dibujado a mano, con estilo tierno.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>A</strong> — Audiencia</td>
+                            <td>¿Quién verá la imagen y qué quiero comunicarle?</td>
+                            <td>La verán mis compañeros de clase. Quiero transmitir alegría y que puedan reconocerme.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>R</strong> — Requisitos</td>
+                            <td>¿Qué debe conservar? ¿Qué detalles quiero añadir?</td>
+                            <td>Conserva mi rostro reconocible, peinado y ropa. Usa trazos de lápiz, fondo celeste suave y pequeñas estrellas alrededor.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>O</strong> — Output (Formato)</td>
+                            <td>¿Cómo quiero recibir la imagen?</td>
+                            <td>Entrega una imagen cuadrada, con el retrato centrado y espacio alrededor, sin texto.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="info-box">
+                <strong style="color: #fff; display: block; margin-bottom: 5px;">🎨 Así se ve un prompt completo uniéndolo todo:</strong>
+                <div class="prompt-example">
+                    "Adjunto una fotografía mía. Quiero crear una tarjeta para presentarme en clase. Transforma mi fotografía en un retrato doodle dibujado a mano, con estilo tierno. La imagen será para mis compañeros de clase; quiero transmitir alegría y que puedan reconocerme. Conserva mis rasgos faciales reconocibles, tono de piel, peinado y ropa. Usa trazos de lápiz y sombreado suave con lápices de colores. Añade un fondo celeste suave con textura de papel y pequeñas estrellas alrededor, sin cubrir mi rostro. Entrega una sola imagen cuadrada, con el retrato centrado y espacio alrededor, sin texto."
+                </div>
+            </div>
+            
+            <button class="btn btn-blue" onclick="mostrarSeccion('seccion3')">¡Entendido! ¡Vamos a crear mi súper prompt! 🚀</button>
+        </div>
+
+        <!-- PARTE 3 -->
+        <div id="seccion3" class="section">
+            <button class="btn btn-secondary" onclick="mostrarSeccion('seccion2')">⬅️ Anterior (Ver tabla CLARO)</button>
+            <h2 class="title-friendly" style="margin-top: 10px;">🎓 Paso 3: ¡Tu turno de brillar!</h2>
+            
+            <div class="info-box">
+                <strong style="color: #fff; display: block; margin-bottom: 5px;">💡 Pistas antes de enviarlo:</strong>
+                <ul class="checklist">
+                    <li>¿Le conté a la IA para qué quiero la imagen?</li>
+                    <li>¿Le expliqué qué estilo exacto necesito?</li>
+                    <li>¿Pensé en las personas que verán el resultado?</li>
+                    <li>¿Le aclaré qué cosas de mí debe conservar?</li>
+                    <li>¿Le pedí un formato en especial (cuadrado, horizontal)?</li>
+                    <li>¿Es mi foto o tengo permiso para usarla?</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="promptMejorado">¡Escribe aquí tu prompt maestro utilizando todo lo aprendido!</label>
+                <textarea id="promptMejorado" placeholder="Escribe aquí pensando en el contexto, la labor, tu audiencia, los requisitos y el formato..."></textarea>
+            </div>
+            
+            <button class="btn" onclick="descargarPrompt('promptMejorado', 'Mi Súper Prompt')">
+                🌟 ¡Descargar mi versión FINAL en JPG para el grupo!
+            </button>
+
+            <div id="mensajeFinal" class="hidden success-msg">
+                ¡Muchísimas gracias, colega! 🎉<br><span style="color: #fff; font-weight: normal; font-size: 1.5rem;">¡Ahora miremos cómo nos vemos animados tipo cartoon!</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function descargarPrompt(textareaId, tipo) {
+            const nombre = document.getElementById('nombres').value.trim();
+            const texto = document.getElementById(textareaId).value.trim();
+
+            if(!nombre || !texto) {
+                alert("¡Ups! Por favor, no olvides anotar tu título y nombre, además de escribir tu prompt.");
+                return;
+            }
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 800;
+            canvas.height = 800;
+
+            // Fondo amigable
+            ctx.fillStyle = "#1a1d29";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Borde redondeado
+            ctx.strokeStyle = "#EA2027";
+            ctx.lineWidth = 15;
+            ctx.strokeRect(7, 7, canvas.width - 14, canvas.height - 14);
+
+            // Título
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 34px 'Comic Sans MS', Arial, sans-serif";
+            ctx.fillText("✨ " + tipo.toUpperCase() + " ✨", 50, 80);
+            
+            // Subtítulo con nombre
+            ctx.fillStyle = "#EA2027";
+            ctx.font = "bold 26px 'Comic Sans MS', Arial, sans-serif";
+            ctx.fillText(nombre, 50, 130);
+
+            // Línea separadora
+            ctx.beginPath();
+            ctx.moveTo(50, 150);
+            ctx.lineTo(750, 150);
+            ctx.strokeStyle = "rgba(255,255,255,0.2)";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Texto del prompt
+            ctx.fillStyle = "#e1e6f0";
+            ctx.font = "24px 'Comic Sans MS', Arial, sans-serif";
+            const palabras = texto.split(' ');
+            let linea = '';
+            let y = 200;
+            const maxWidth = 700;
+
+            for(let n = 0; n < palabras.length; n++) {
+                let testLinea = linea + palabras[n] + ' ';
+                let metrica = ctx.measureText(testLinea);
+                if (metrica.width > maxWidth && n > 0) {
+                    ctx.fillText(linea, 50, y);
+                    linea = palabras[n] + ' ';
+                    y += 35; 
+                } else {
+                    linea = testLinea;
+                }
+            }
+            ctx.fillText(linea, 50, y);
+
+            // Pie de página
+            ctx.fillStyle = "#6b7688";
+            ctx.font = "italic 20px 'Comic Sans MS', Arial, sans-serif";
+            ctx.fillText("Módulo 3: Evaluación de Aprendizaje • CEPIES", 50, 750);
+
+            // Descarga
+            const enlace = document.createElement('a');
+            enlace.download = tipo.replace(/ /g,"_") + "_" + nombre.replace(/ /g,"_") + ".jpg";
+            enlace.href = canvas.toDataURL("image/jpeg");
+            enlace.click();
+
+            // Magia automática de redirección
+            if(textareaId === 'promptBasico') {
+                // Automáticamente pasa a la sección 2 después de medio segundo
+                setTimeout(() => {
+                    mostrarSeccion('seccion2');
+                }, 800);
+            } else {
+                document.getElementById('mensajeFinal').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
